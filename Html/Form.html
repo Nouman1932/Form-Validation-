@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Css/form.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+   
+    <title>Form</title>
+
+</head>
+<body>
+        <form name="myForm" class="row g-3" method="post" action="/action_page.php">
+            <h1>Form</h1>  
+            <div class="col-md-6">
+                <label  class="form-label">Name<a style="color: red;">*</a></label>
+                <input id="name" type="text" class="form-control" placeholder="First name" aria-label="First name" required>
+                <div id="alert_message" style="color: red; margin-left: 0.5rem;"></div>
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">Date of Birth<a style="color: red;">*</a></label>
+                <input id="dob" type="date" class="form-control" >
+                <div id="dateOfBirth" style="color: red; margin-left: 0.5rem;"></div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Start Date<a style="color: red;">*</a></label>
+                <input id="startdate" type="date" class="form-control" TargetControlID="txtStartDate">
+                <div id="SDate" style="color: red; margin-left: 0.5rem;"></div>
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">End Date<a style="color: red;">*</a></label>
+                <input id="enddate" type="date" class="form-control" TargetControlID="txtEndDate">
+                <div id="EDate" style="color: red; margin-left: 0.5rem;"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <label  class="form-label">Upload PDF File<a style="color: red;">*</a></label>
+                <input id="file" type="file" class="form-control" accept="application/pdf">
+                <div id="File" style="color: red; margin-left: 0.5rem;"></div>
+            </div>
+           
+            <div class="col-12">
+              <button type="button" id="submit" class="btn btn-primary" onclick="return submitData()">Submit</button>
+            </div>
+          </form>
+         
+          <div id="show">
+            <pre></pre>
+          </div>
+         
+
+
+          <!-- ================================= Script ===============================-->
+          <script>
+            let record=[];
+            function submitData(){
+
+                ////// Add Validation
+                let x = document.forms["myForm"]["startdate"].value;
+                let y= document.forms["myForm"]["enddate"].value;
+
+                if (document.forms["myForm"]["name"].value == "") {
+                    document.getElementById("alert_message").innerHTML = "name must be required";
+                    return false;
+                }
+                 
+                if (document.forms["myForm"]["dob"].value == "") {
+                    document.getElementById("dateOfBirth").innerHTML = "Date must be required";
+                    return false;
+                }
+                if (document.forms["myForm"]["startdate"].value == "") {
+                    document.getElementById("SDate").innerHTML = "Startdate must be required";
+                    return false;
+                }
+                if (document.forms["myForm"]["enddate"].value == "") {
+                    document.getElementById("EDate").innerHTML = "Enddate must be required";
+                    return false;
+                }
+                if (document.forms["myForm"]["file"].value == "") {
+                    document.getElementById("File").innerHTML = "Upload File";
+                    return false;
+                }
+                
+                //=======================
+        
+                var name=$('#name').val();
+                var dob=$('#dob').val();
+                var startdate=$('#startdate').val();
+                var enddate=$('#enddate').val();
+                var file=$('#file').val();
+
+                jsonObject={
+                    "Name":"",
+                    "DOB":"",
+                    "StartDate":"",
+                    "EndDate":"",
+                    "File":"",
+                }
+                jsonObject.Name=name;
+                jsonObject.DOB=dob;
+                jsonObject.StartDate=startdate;
+                jsonObject.EndDate=enddate;
+                jsonObject.File=file;
+                if(x>=y)
+                {
+                      alert("Start date must be less then End date!");
+                
+                }
+                else{
+                //Store data in array 
+                record.push(jsonObject);
+                document.forms[0].reset();
+
+                //Display on document 
+                console.warn('added' , {record} );
+                let pre = document.querySelector('#show pre');
+                pre.textContent = '\n' + JSON.stringify(record, '\t', 2);
+
+                localStorage.setItem('Recoards', JSON.stringify(record) );
+                }
+            }
+
+          </script>
+</body>
+</html>

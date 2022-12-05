@@ -1,0 +1,18 @@
+.row{
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 2rem;
+    border-radius: 15px;
+    border: 2px rgb(89, 100, 91) solid;
+    padding-bottom: 1rem;
+    background-color: aliceblue;
+}
+h1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    color: blueviolet;
+}
+label{
+    color:blueviolet;
+    
+}
